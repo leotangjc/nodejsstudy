@@ -9,6 +9,7 @@ var mysql = require('mysql');
 function getDataFromDB( queryCallback )
 {
 
+    //创建数据库地址
     var connection = mysql.createConnection({
         host : '127.0.0.1',
         user : 'root',
@@ -19,6 +20,7 @@ function getDataFromDB( queryCallback )
 
     });
 
+    //连接到数据库地址
     connection.connect();
 
 
@@ -29,15 +31,16 @@ function getDataFromDB( queryCallback )
     //单词：query(查询) result(结果）
     connection.query( querySql, function (err, result,fields ) {
 
+        //如果失败，返回日志，并关闭连接
         if(err){
             console.log(err);
-            connection.close();
+            connection.close;
             return;
         }
 
 
         // 将结果值传递过去
-        queryCallback( rlt );
+        queryCallback( result );
 
     } );
 

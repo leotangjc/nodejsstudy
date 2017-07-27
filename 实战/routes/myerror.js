@@ -1,7 +1,3 @@
-/**
- * Created by longlingxiu on 15/3/20.
- */
-
 
 module.exports = function (req,res, next ) {
 

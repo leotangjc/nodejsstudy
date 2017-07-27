@@ -18,12 +18,14 @@
     <th>年龄</th>
     <th>操作</th>
 
+    //表的行数自适应
     <%for( var i = 0; i < queryRlt.length; i++ ){%>
 
     <tr>
         <td> <%=queryRlt[i]['loginname']%> </td>
         <td> <%=queryRlt[i]['passwd']%> </td>
         <td> <%=queryRlt[i]['age']%> </td>
+        //携带数据在库中的位置，去访问指定文件
         <td><a href="/deleteUser?userid=<%=queryRlt[i]['id']%>">删除</a></td>
 
     </tr>

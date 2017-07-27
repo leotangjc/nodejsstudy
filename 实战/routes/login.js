@@ -1,6 +1,3 @@
-/**
- * Created by longlingxiu on 15/3/20.
- */
 
 var mysql = require('mysql');
 
@@ -14,6 +11,7 @@ var mysql = require('mysql');
 function validataUser( uname, upwd, callback )
 {
 
+  //创建数据库地址
     var connection = mysql.createConnection({
         host : '127.0.0.1',
         user : 'root',
@@ -24,10 +22,13 @@ function validataUser( uname, upwd, callback )
 
     });
 
+    //连接到数据库地址
     connection.connect();
 
-console.log('fdsfdsf')
+
+    //
     var sql = 'select * from userinfos where loginname=? and passwd=?';
+     // db.userinfos.find({loginname:xxx,passwd:xxx})
     var params = [ uname, upwd ];
 
     console.log('username : ', uname );
@@ -35,19 +36,19 @@ console.log('fdsfdsf')
 
     connection.query( sql, params, function( error, result  ){
 
-        var loginRlt = false;
+      var loginRlt = false;
 
-        console.log('oooo')
+      console.log('oooo')
 
-        console.log( result );
-        if( result.length == 1 ){
-            loginRlt = true;
-        }
+      console.log( result );
+      if( result.length == 1 ){
+        loginRlt = true;
+      }
 
 
-        callback( loginRlt );
+      callback( loginRlt );
 
-    } );
+} );
 
 
 }
@@ -56,21 +57,23 @@ console.log('fdsfdsf')
 
 module.exports = function ( request, response, next ) {
 
-    console.log(' enter login module');
+  console.log(' enter login module');
 
-    var username = request.query.uname ;
-    var userpassword  = request.query.upwd ;
+  var username = request.query.uname ;
+  var userpassword  = request.query.upwd ;
 
-    console.log('-----------')
 
-    validataUser(username,userpassword, function ( loginResult ) {
+  //验证用户
+  validataUser(username,userpassword, function ( loginResult ) {
 
-        if( loginResult )
+    if( loginResult )
         {
+            //验证成功，进入页面
             response.redirect( '/info');
             return;
         }
 
+        //若验证失败，跳转到登录失败
         response.redirect( '/myerror');
 
     });
